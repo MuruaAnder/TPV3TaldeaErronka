@@ -105,9 +105,11 @@ namespace _2taldea
 
                         int stockTotalDisponible = productos.Sum(p => p.Stock);
 
+                        // 🚨 Si no hay suficiente stock, mostramos alerta y no seguimos con el pedido 🚨
                         if (stockTotalDisponible < cantidad)
                         {
-                            throw new Exception($"Stock insuficiente para '{nombrePlato}'. Disponible: {stockTotalDisponible}, solicitado: {cantidad}");
+                            Console.WriteLine($"⚠️ Ez dago stockik '{nombrePlato}'! Mesedez, aukeratu beste zerbait eta gerenteari abixatu! ⚠️");
+                            return; // Salimos de la función sin procesar el pedido
                         }
 
                         int cantidadRestante = cantidad;
@@ -120,9 +122,17 @@ namespace _2taldea
                             int reducirEnEsteProducto = Math.Min(producto.Stock, cantidadRestante);
                             producto.Stock -= reducirEnEsteProducto;
                             cantidadRestante -= reducirEnEsteProducto;
+
                             session.Update(producto);
+
+                            // 🚨 Si el producto llegó a 0, mostramos la alerta 🚨
+                            if (producto.Stock == 0)
+                            {
+                                Console.WriteLine($"⚠️ Ez dago stockik '{producto.Izena}'! Mesedez, aukeratu beste zerbait eta gerenteari abixatu! ⚠️");
+                            }
                         }
 
+                        // Guardamos los pedidos
                         for (int i = 0; i < cantidad; i++)
                         {
                             Eskaera nuevaEskaera = new Eskaera
@@ -148,6 +158,8 @@ namespace _2taldea
                 }
             }
         }
+
+
 
         // Método para desactivar los pedidos de una mesa
         public static void BorrarPedidos(ISessionFactory sessionFactory, int mesaId)

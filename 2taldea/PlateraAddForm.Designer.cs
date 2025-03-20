@@ -47,7 +47,7 @@
             // txtIzena
             // 
             txtIzena.BackColor=Color.White;
-            txtIzena.ForeColor=Color.White;
+            txtIzena.ForeColor=Color.Black;
             txtIzena.Location=new Point(850, 400);
             txtIzena.Name="txtIzena";
             txtIzena.Size=new Size(350, 23);
@@ -56,7 +56,7 @@
             // txtKategoria
             // 
             txtKategoria.BackColor=Color.White;
-            txtKategoria.ForeColor=Color.White;
+            txtKategoria.ForeColor=Color.Black;
             txtKategoria.Location=new Point(850, 450);
             txtKategoria.Name="txtKategoria";
             txtKategoria.Size=new Size(350, 23);
@@ -65,7 +65,7 @@
             // txtKantitatea
             // 
             txtKantitatea.BackColor=Color.White;
-            txtKantitatea.ForeColor=Color.White;
+            txtKantitatea.ForeColor=Color.Black;
             txtKantitatea.Location=new Point(850, 500);
             txtKantitatea.Name="txtKantitatea";
             txtKantitatea.Size=new Size(350, 23);
@@ -74,7 +74,7 @@
             // txtPrezioa
             // 
             txtPrezioa.BackColor=Color.White;
-            txtPrezioa.ForeColor=Color.White;
+            txtPrezioa.ForeColor=Color.Black;
             txtPrezioa.Location=new Point(850, 550);
             txtPrezioa.Name="txtPrezioa";
             txtPrezioa.Size=new Size(350, 23);
@@ -197,8 +197,8 @@
             Controls.Add(pictureBox);
             Name="PlateraAddForm";
             Text="Platera Gehitu";
-            Load+=PlateraAddForm_Load;
             WindowState=FormWindowState.Maximized;
+            Load+=PlateraAddForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
