@@ -8,11 +8,10 @@ namespace _2taldea
         {
             try
             {
-                // Usamos un bloque using para asegurar que la sesión y transacción se cierren correctamente
                 using (ISession session = sessionFactory.OpenSession())
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    // Crear un nuevo objeto Plato
+                    // 1️⃣ Guardar el nuevo plato en la tabla Platera
                     Platera plato = new Platera
                     {
                         Izena = izena,
@@ -21,24 +20,30 @@ namespace _2taldea
                         Prezioa = prezioa
                     };
 
-                    // Guardar el plato en la base de datos
                     session.Save(plato);
+
+                    // 2️⃣ Guardar el mismo plato como un producto en la tabla Produktua
+                    Produktua producto = new Produktua
+                    {
+                        Izena = izena,   // Mismo nombre del plato
+                        Stock = kantitatea,  // Stock inicial igual a la cantidad del plato
+                        Prezioa = prezioa,  // Mismo precio que el plato
+                        Max = 100000,   // Valor arbitrario de stock máximo
+                        Min = 1      // Valor arbitrario de stock mínimo
+                    };
+
+                    session.Save(producto);
 
                     // Confirmamos la transacción
                     transaction.Commit();
 
-                    // Retornamos un mensaje de éxito
-                    return "true";
+                    return "true"; // Éxito
                 }
             }
             catch (Exception ex)
             {
-                // Si ocurre algún error, lo retornamos
-                return "Error al guardar el plato: " + ex.Message;
+                return "Error al guardar el plato y producto: " + ex.Message;
             }
         }
-
-        // Aquí puedes añadir más métodos para otras operaciones con los platos, como actualizar, eliminar, etc.
     }
-
 }
